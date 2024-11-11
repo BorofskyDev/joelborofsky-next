@@ -7,12 +7,12 @@ import styles from './HeroContent.module.scss'
 export default function HeroContent() {
   const notBad = icons.notBad
   return (
-    <div className={styles.heroContent}>
+    <div className={`bg-blue ${styles.heroContent}`}>
       <PageHeader>Hello!</PageHeader>
-      <p>
+      <p className='fs-500 fw-medium-bold'>
         My name is <span className='font-handwriting fs-600'>Joel</span>
       </p>
-      <p>I am a...</p>
+      <p className='fs-500 fw-medium-bold'>I am a...</p>
       <LargeTitleContainer className='relative bg-red font-handwriting'>
         Fullstack Developer
         <MediumIcon
