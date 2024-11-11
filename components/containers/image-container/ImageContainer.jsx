@@ -1,10 +1,10 @@
-import Image from 'next/image'
-import styles from './ImageContainer.module.scss'
+
 import JpgImage from './JpgImage'
 import SmallTitleContainer from '../title-containers/small-title-container/SmallTitleContainer'
 import SmallIcon from '@/components/icons/small-icon/SmallIcon'
+import styles from './ImageContainer.module.scss'
 
-export default function JPGImage({
+export default function ImageContainer({
   src,
   alt,
   className,

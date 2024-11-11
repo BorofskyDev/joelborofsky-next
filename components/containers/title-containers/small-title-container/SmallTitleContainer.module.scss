@@ -1,0 +1,22 @@
+@use '../../../../styles/mixins' as *;
+
+.smallTitleContainer {
+    margin: var(--spacing-200) auto;
+    margin-bottom: 0;
+    padding: var(--spacing-100) var(--spacing-200);
+    text-align: center;
+    letter-spacing: 0.125em;
+    
+    @include respond(desktop) {
+        padding: var(--spacing-200) var(--spacing-300);
+    }
+
+    & span {
+        position: absolute;
+        top: 0;
+        right: 0;
+        line-height: 95%;
+        letter-spacing: -0.01em;
+        transform: translate(3.75em, 45%) rotate(45deg) skew(-5deg);
+    }
+}
