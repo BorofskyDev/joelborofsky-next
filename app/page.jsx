@@ -1,9 +1,10 @@
+import SplashPageComponent from "@/components/pages/splash/SplashPageComponent";
 
 
 export default function Home() {
   return (
-    <div >
-     
-    </div>
+    <main >
+     <SplashPageComponent />
+    </main>
   );
 }

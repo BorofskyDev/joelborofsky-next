@@ -1,0 +1,38 @@
+@use './breakpoints' as *;
+
+@mixin iconImg($width, $height) {
+  width: $width;
+  height: $height;
+
+  @include respond(tab) {
+    width: $width * 1.25;
+    height: $height * 1.25;
+  }
+
+  @include respond(desktop) {
+    width: $width * 1.5;
+    height: $height * 1.5;
+  }
+}
+
+@mixin icon($width, $height, $boxShadow) {
+  width: $width;
+  height: $height;
+  box-shadow: $boxShadow;
+  border: var(--border-400);
+  border-radius: var(--br-600);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+
+  @include respond(tab) {
+    width: $width * 1.25;
+    height: $height * 1.25;
+  }
+
+  @include respond(desktop) {
+    width: $width * 1.5;
+    height: $height * 1.5;
+  }
+}

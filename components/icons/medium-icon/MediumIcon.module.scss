@@ -1,0 +1,5 @@
+@use '../../../styles/mixins' as *;
+
+.mediumIcon {
+  @include icon(4.6875rem, 4.6875rem, var(--box-shadow-200));
+}

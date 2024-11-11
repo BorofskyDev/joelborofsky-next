@@ -1,0 +1,15 @@
+@use '../../../../styles/mixins' as *;
+
+.largeTitleContainer {
+    margin-inline: 2em;
+    padding: 1em 4em;
+    align-self: center;
+    text-align: center;
+    letter-spacing: 0.125em;
+    line-height: 1.5;
+
+    @include respond(desktop) {
+        margin-inline: 0;
+        max-width: 30rem;
+    }
+}

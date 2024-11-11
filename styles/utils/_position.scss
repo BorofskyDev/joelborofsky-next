@@ -1,0 +1,27 @@
+@use '../mixins' as *;
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.sticky {
+  position: sticky;
+}
+
+.top-right {
+  bottom: var(--spacing-400);
+  right: var(--spacing-100);
+
+  @include respond(smallDesktop) {
+    bottom: var(--spacing-500);
+    right: var(--spacing-100);
+  }
+}
