@@ -1,0 +1,37 @@
+@use '../../../../styles/mixins' as *;
+
+.sectionHeader {
+  margin: var(--spacing-900) auto;
+  padding: var(--spacing-200) var(--spacing-400);
+  display: grid;
+  place-content: center;
+  letter-spacing: 0.125em;
+  transform: skew(-25deg);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0.5em;
+    height: 3em;
+    background-color: inherit;
+    box-shadow: inherit;
+    border: inherit;
+    border-radius: inherit;
+    place-self: center;
+  }
+
+  &::before {
+    left: -1em;
+  }
+
+  &::after {
+    right: -1em;
+  }
+
+  & span {
+    width: 100%;
+    transform: skew(25deg);
+    text-align: center;
+  }
+}

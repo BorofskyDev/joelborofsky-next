@@ -1,0 +1,27 @@
+@use '../../../../../styles/mixins' as *;
+
+.aboutSection {
+    height: 100%;
+    border-top: var(--border-400);
+    border-bottom: var(--border-400);
+    gap: var(--spacing-900);
+
+    @include respond(laptop) {
+        gap: 0;
+    }
+
+    & .servicesWrapper {
+        height: 100%;
+        width: 100%;
+        padding: 2em 4em;
+        display: grid;
+        place-items: center;
+        gap: 4em;
+
+        @include respond(desktop) {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+    }
+}

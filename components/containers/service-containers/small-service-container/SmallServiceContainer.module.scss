@@ -1,0 +1,41 @@
+@use '../../../../styles/mixins' as *;
+
+.smallServiceContainer {
+    height: 100%;
+    width: 100%;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2em;
+
+    @include respond(tab) {
+        padding: 1em 3em;
+    }
+
+    @include respond(desktop) {
+        margin: 0 1rem;
+        max-width: 28rem;
+        min-height: 36rem;
+        align-items: center;
+        justify-content: center;
+    }
+
+    & p {
+        min-height: 10rem;
+        background-color: hsl(var(--color-light));
+        padding: 2em 1em;
+        display: grid;
+        place-content: center;
+        line-height: 1.75;
+
+        @include respond(desktop) {
+            height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5em 1.5em;
+        }
+    }
+
+}

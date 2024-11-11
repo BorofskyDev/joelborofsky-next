@@ -1,0 +1,14 @@
+.mediumHeader {
+  width: 100%;
+  margin: 1em auto;
+  padding: 1em 2em;
+  text-align: center;
+  letter-spacing: 0.125em;
+
+  & span {
+    position: absolute;
+    text-align: center;
+    font-size: var(--fs-600);
+    transform: translate(5%, -15%) rotate(5deg) skew(-10deg);
+  }
+}
