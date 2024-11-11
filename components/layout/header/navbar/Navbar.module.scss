@@ -1,0 +1,39 @@
+@use '../../../../styles/mixins' as *;
+
+.navbar {
+  display: none;
+
+  @include transitionMain;
+
+  @include respond(tab) {
+    position: relative;
+    grid-row: 2 / 2;
+    width: 100vw;
+    display: block;
+    padding: var(--spacing-400);
+    border-bottom: var(--border-600);
+    border-top: var(--border-600);
+    background-color: hsl(var(--color-light));
+    z-index: 9000 !important; // This is for the developer
+    @include transitionMain;
+  }
+}
+
+.stickyNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-top: none;
+  padding: var(--spacing-300) var(--spacing-200);
+  border-bottom: var(--border-900);
+  @include transitionMain;
+
+  & ul {
+    font-size: var(--fs-500);
+  }
+
+}
+
+.navbarOffsetMargin {
+  padding-top: 1em;
+}

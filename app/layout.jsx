@@ -1,3 +1,4 @@
+import Header from '@/components/layout/header/Header'
 import { playfairDisplay, inconsolata, inter, permanentMarker } from './fonts'
 import '@/styles/globals.scss'
 
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${playfairDisplay.variable} ${inconsolata.variable} ${inter.variable} ${permanentMarker.variable}`}
       >
+        <Header />
         {children}
       </body>
     </html>

@@ -1,0 +1,20 @@
+@use '../../../../../styles/mixins' as *;
+
+.mobileMenu {
+  position: fixed;
+  top: 4em;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  padding: 4em 0;
+  display: grid;
+  place-items: center;
+  background-color: hsl(var(--color-light));
+  backdrop-filter: blur(16px);
+  overflow: hidden;
+  z-index: 9000 !important; //This is for the developer
+
+  @include respond(tab) {
+    display: none;
+  }
+}

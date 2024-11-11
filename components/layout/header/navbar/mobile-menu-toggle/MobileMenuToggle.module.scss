@@ -1,0 +1,32 @@
+@use '../../../../../styles/mixins' as *;
+
+.menuToggle {
+  
+  position: relative;
+  height: 2em;
+  width: 2.5em;
+  padding: 0;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  justify-self: flex-end;
+  align-self: center;
+  cursor: pointer;
+  border: none;
+
+  @include respond(tab) {
+    display: none;
+  }
+
+  & span {
+    position: absolute;
+    height: 0.15em;
+    width: 100%;
+    display: block;
+    background-color: hsl(var(--color-dark));
+
+   
+  }
+}

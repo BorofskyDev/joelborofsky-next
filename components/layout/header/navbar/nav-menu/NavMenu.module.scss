@@ -1,0 +1,19 @@
+@use '../../../../../styles/mixins' as *;
+
+.navMenu {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--fs-700);
+  gap: 3em;
+
+  @include respond(tab) {
+    width: 100%;
+    padding-inline: var(--spacing-200);
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: var(--fs-600);
+  }
+}

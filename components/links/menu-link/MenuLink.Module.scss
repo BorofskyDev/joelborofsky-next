@@ -1,0 +1,67 @@
+@use '../../../styles/mixins' as *;
+
+.menuLink {
+  position: relative;
+  padding-bottom: 0.125em;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  font-size: inherit;
+  letter-spacing: var(--ls-sm);
+  font-weight: var(--fw-medium-bold);
+  color: hsl(var(--color-dark));
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 0.125em;
+    width: 100%;
+    background-color: hsl(var(--color-link-hover));
+    transform: scale3d(0, 0, 0);
+    @include transitionMain;
+  }
+
+  &::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    height: 100%;
+    color: hsl(var(--color-link-hover));
+    transform: translate3d(150%, 0, 0);
+    @include transitionMain;
+  }
+
+  & span {
+    @include transitionMain;
+  }
+
+  &:hover::before,
+  &:focus::before {
+    transform: scale3d(1, 1, 1);
+    transform-origin: left;
+    text-shadow: var(--text-shadow-sm);
+    box-shadow: var(--box-shadow-200);
+    color: hsl(var(--color-link-hover));
+  }
+
+  &:hover::after,
+  &:focus::after {
+    transform: translate3d(0, 0, 0);
+  }
+
+  &:hover span,
+  &:focus span {
+    transform: translate3d(-150%, 0, 0);
+  }
+
+  &:active span,
+  &:active::after {
+    color: hsl(var(--color-link-active));
+  }
+
+  &:active::before {
+    background-color: hsl(var(--color-link-active));
+  }
+}

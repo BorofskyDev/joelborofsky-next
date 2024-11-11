@@ -1,0 +1,33 @@
+@use '../../../styles/mixins' as *;
+
+.header {
+  position:fixed;
+  width: 100vw;
+  display: grid;
+  padding: 0.5em 2em;
+  grid-template-columns: 3fr 1fr;
+  border-bottom: var(--border-900);
+  overflow: hidden;
+  background-color: hsl(var(--color-light));
+  z-index: 999999;
+
+  @include respond(tab) {
+    position: relative;
+    grid-template-colums: 1fr;
+    grid-template-rows: 1.5fr 1fr;
+    place-content: center;
+    border: none;
+    overflow: visible;
+    padding: 0;
+    margin-bottom: 0;
+  }
+
+  @include respond(smallDesktop) {
+    grid-template-rows: 2fr 1fr;
+  }
+
+  @include respond(desktop) {
+    grid-template-rows: 3fr 1fr;
+  }
+
+}
