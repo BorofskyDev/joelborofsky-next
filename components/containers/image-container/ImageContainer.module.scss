@@ -1,0 +1,28 @@
+@use '../../../styles/mixins' as *;
+
+.imageContainer {
+    min-height: 21.25rem;
+    min-width: 20.2rem;
+    grid-row: 2/4;
+    grid-column: 2/4;
+    display: grid;
+    place-items: center;
+    padding: var(--spacing-400);
+
+    @include respond(desktop) {
+        min-height: 28rem;
+        min-width: 26rem;
+    }
+}
+
+& .image {
+    height: 15em;
+    width: 14em;
+    object-fit: contain;
+    object-position: bottom;
+    
+    @include respond(desktop) {
+        height: 20em;
+        width: 18em;
+    }
+}

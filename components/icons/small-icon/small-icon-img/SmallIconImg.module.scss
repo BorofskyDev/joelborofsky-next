@@ -1,0 +1,5 @@
+@use '../../../../styles/mixins' as *;
+
+.smallIconImg {
+  @include iconImg(2.8125rem, 3.4375rem);
+}

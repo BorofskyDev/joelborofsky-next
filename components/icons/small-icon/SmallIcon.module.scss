@@ -1,0 +1,17 @@
+@use '../../../styles/mixins' as *;
+
+.smallIcon {
+    @include icon(3.875rem, 3.875rem, var(--box-shadow-400))
+}
+
+.left {
+  left: 0;
+  top: 0;
+  transform: rotate(25deg);
+}
+
+.right {
+  right: 0;
+  top: 0;
+  transform: rotate(-25deg);
+}
