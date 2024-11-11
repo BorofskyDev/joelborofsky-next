@@ -1,8 +1,6 @@
 @use '../../../../../../styles/mixins' as *;
 
 .heroContent {
-  height: 50vh;
-  width: 100%;
   margin-top: 1em;
   padding: 4em 2em;
   border-bottom: var(--border-200);
@@ -12,17 +10,10 @@
   justify-content: center;
   gap: 1em;
 
-  @include respond(tab) {
-    height: 100%;
-    margin: 0;
-  }
+  @include colToRowContainer;
 
   @include respond(laptop) {
-    width: 50%;
-    height: 100vh;
     border-right: var(--border-200);
     border-bottom: none;
   }
-
- 
 }

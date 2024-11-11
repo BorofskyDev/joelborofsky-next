@@ -1,0 +1,16 @@
+@use './breakpoints' as *;
+
+@mixin colToRowContainer {
+    height: 50vh;
+    width: 100%;
+    
+    @include respond(tab) {
+        height: 100%;
+        margin: 0;
+    }
+
+    @include respond(laptop) {
+        height: 100vh;
+        width: 50%;
+    }
+}
