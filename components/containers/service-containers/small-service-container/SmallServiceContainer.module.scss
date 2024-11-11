@@ -3,14 +3,14 @@
 .smallServiceContainer {
     height: 100%;
     width: 100%;
-    padding: 1em;
+    padding: 2em;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 2em;
 
     @include respond(tab) {
-        padding: 1em 3em;
+        padding: 2em 3em;
     }
 
     @include respond(desktop) {

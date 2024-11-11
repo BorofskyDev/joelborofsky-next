@@ -2,6 +2,7 @@
 
 .aboutSection {
     height: 100%;
+    
     border-top: var(--border-400);
     border-bottom: var(--border-400);
     gap: var(--spacing-900);
@@ -22,6 +23,20 @@
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
+        }
+    }
+
+    & .bioContainer {
+        height: 100%;
+        padding: 4em 2em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: var(--spacing-400);
+
+        @include respond(laptop) {
+            flex-direction: row;
         }
     }
 }
