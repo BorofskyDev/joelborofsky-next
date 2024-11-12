@@ -1,0 +1,18 @@
+@use '../../../../styles/mixins' as *;
+
+.projectTopHalf {
+  width: 100%;
+  padding: var(--spacing-400) 0;
+  padding-bottom: 0;
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-columns: 0.5fr 2fr 0.5fr;
+  grid-template-rows: 0.5fr 1.5fr;
+  gap: var(--spacing-300) 0;
+
+  @include respond(smallDesktop) {
+    grid-template-columns: 0.3fr 2.4fr 0.3fr;
+    grid-template-rows: 1.5fr 0.5fr;
+    gap: 0;
+  }
+}

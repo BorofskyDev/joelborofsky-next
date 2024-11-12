@@ -107,8 +107,8 @@ export default function AboutSection() {
           you&apos;re looking for a developer, designer, or business person,
           I&apos;ve also been told that I&apos;m fun!
         </TextContainer>
+      <InternalLinkBox  href='/about/'>Learn more about me!</InternalLinkBox>
       </div>
-      <InternalLinkBox href='/about/'>Learn more about me!</InternalLinkBox>
     </FlexColContainer>
   )
 }

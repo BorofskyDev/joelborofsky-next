@@ -1,0 +1,7 @@
+@use '../../../../../../../styles/mixins' as *;
+
+.projectIconImg {
+  padding: var(--spacing-100);
+  background-color: hsl(var(--color-blue));
+  @include icon(3.275rem, 3.275rem, var(--box-shadow-100));
+}

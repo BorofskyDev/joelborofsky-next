@@ -1,0 +1,28 @@
+@use '../../../../../styles/mixins' as *;
+
+.projectImage {
+  grid-column: 2/2;
+  height: 100%;
+  width: 100%;
+  padding: var(--spacing-100);
+  border: var(--border-100);
+  border-radius: var(--br-200);
+
+  @include respond(laptop) {
+    padding: var(--spacing-400);
+    border-radius: var(--br-400) var(--br-400) 0 0;
+    border-bottom: none;
+  }
+
+  & img {
+    width: 100%;
+    min-height: 8rem;
+    object-fit: cover;
+    border: var(--border-100);
+    border-radius: var(--br-200);
+
+    @include respond(laptop) {
+      min-height: 12.5rem;
+    }
+  }
+}

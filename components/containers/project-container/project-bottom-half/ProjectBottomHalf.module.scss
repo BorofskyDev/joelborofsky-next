@@ -1,0 +1,16 @@
+@use '../../../../styles/mixins' as *;
+
+.projectBottomHalf {
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    padding: var(--spacing-400) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    @include respond(laptop) {
+        flex-direction: row-reverse;
+    }
+}
