@@ -10,7 +10,7 @@
   grid-template-rows: 0.5fr 1.5fr;
   gap: var(--spacing-300) 0;
 
-  @include respond(smallDesktop) {
+  @include respond(laptop) {
     grid-template-columns: 0.3fr 2.4fr 0.3fr;
     grid-template-rows: 1.5fr 0.5fr;
     gap: 0;
