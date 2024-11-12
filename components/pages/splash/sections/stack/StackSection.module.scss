@@ -1,0 +1,87 @@
+@use '../../../../../styles/mixins' as *;
+
+.stackSection {
+  & > .boxOne {
+    grid-area: box-1;
+    padding: 2em 1em;
+    border-bottom: var(--border-200);
+
+    @include respond(tab) {
+        border-right: var(--border-200);
+    }
+  }
+  & > .boxTwo,
+  & > .boxThree {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas:
+      'icon1 icon2'
+      'icon3 icon4';
+
+    & .stackIcon1 {
+      grid-area: icon1;
+    }
+
+    & .stackIcon2 {
+      grid-area: icon2;
+    }
+
+    & .stackIcon3 {
+      grid-area: icon3;
+    }
+
+    & .stackIcon4 {
+      grid-area: icon4;
+    }
+  }
+
+  & > .boxTwo {
+    grid-area: box-2;
+    border-top: var(--border-200);
+    border-bottom: var(--border-200);
+
+    @include respond(tab) {
+      border-top: none;
+      border-left: var(--border-200);
+    }
+  }
+  & > .boxThree {
+    grid-area: box-3;
+    border-top: var(--border-200);
+
+    @include respond(tab) {
+      border-right: var(--border-200);
+    }
+
+    .exBtn {
+        grid-column: 1 / -1;
+      grid-row: 3;
+
+      @include respond(tab) {
+        display: none;
+      }
+      
+    }
+  }
+  & > .boxFour {
+    grid-area: box-4;
+    padding: 2em 1em;
+    border-bottom: var(--border-200);
+    border-top: var(--border-200);
+
+    @include respond(tab) {
+      border-bottom: none;
+      border-left: var(--border-200);
+    }
+    .exBtn {
+      display: none;
+
+      @include respond(tab) {
+        display: block;
+      }
+      
+    }
+  }
+
+}

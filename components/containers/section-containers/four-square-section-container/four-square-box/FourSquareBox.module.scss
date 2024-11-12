@@ -1,0 +1,15 @@
+.fourSquareBox {
+  position: relative;
+  width: 100%;
+  display: grid;
+  place-items: center;
+
+  & ul {
+    padding: 0 1em;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+  }
+}

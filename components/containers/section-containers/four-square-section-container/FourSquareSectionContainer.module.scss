@@ -1,0 +1,25 @@
+@use '../../../../styles/mixins' as *;
+
+.fourSquareSectionContainer {
+    height: 100%;
+    width: 100%;
+    border-top: var(--border-400);
+    border-bottom: var(--border-400);
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas: 
+    'box-1'
+    'box-2'
+    'box-4'
+    'box-3';
+
+    @include respond(tab) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas:
+        'box-1 box-2'
+        'box-3 box-4';
+    }
+}

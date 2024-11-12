@@ -1,0 +1,6 @@
+@use '../../../styles/mixins' as *;
+
+.largeIcon {
+  position: absolute;
+  @include icon(6.25rem, 6.25rem, var(--box-shadow-200));
+}

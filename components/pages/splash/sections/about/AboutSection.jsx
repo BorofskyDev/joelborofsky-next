@@ -2,7 +2,6 @@ import SectionHeader from '@/components/typography/headers/section-header/Sectio
 import FlexColContainer from '@/components/containers/section-containers/flex-col-container/FlexColContainer'
 import SmallServiceContainer from '@/components/containers/service-containers/small-service-container/SmallServiceContainer'
 import InternalLinkBox from '@/components/links/internal-link-box/InternalLinkBox'
-import FlexColRowContainer from '@/components/containers/section-containers/flex-col-row-container/FlexColRowContainer'
 import ImageContainer from '@/components/containers/image-container/ImageContainer'
 import aboutPicture from '@/public/img/profile/joel-cutout-kyiv.png'
 import { icons } from '@/components/icons/icons'
