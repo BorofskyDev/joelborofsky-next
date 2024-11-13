@@ -28,6 +28,10 @@
       color: hsl(var(--color-link));
       @include transitionMain;
 
+      @include respond(desktop)  {
+        margin-left: 14rem;
+      }
+
       &:hover,
       &:focus {
         box-shadow: var(--box-shadow-400);

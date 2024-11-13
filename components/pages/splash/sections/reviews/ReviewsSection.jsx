@@ -28,11 +28,11 @@ export default function ReviewsSection() {
             reviewerName='Roger Smith'
             reviewerHref='#'
             review='Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-            icon={icons.smilingSun.path}
-            viewBox={icons.smilingSun.viewBox}
-            xmlns={icons.smilingSun.xmlns}
-            iconBg='bg-blue'
-            iconFill='fill-vibrant-orange'
+            icon={icons.dinosaur.path}
+            viewBox={icons.dinosaur.viewBox}
+            xmlns={icons.dinosaur.xmlns}
+            iconBg='bg-pink'
+            iconFill='fill-vibrant-blue'
           />
         </FourSquareBox>
         <FourSquareBox className={`bg-orange ${styles.boxFour}`}>
