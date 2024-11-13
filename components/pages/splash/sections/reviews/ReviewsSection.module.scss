@@ -1,0 +1,51 @@
+@use '../../../../../styles/mixins' as *;
+
+.reviewsSection {
+  & > .boxOne,
+  & > .boxTwo,
+  & > .boxThree,
+  & > .boxFour {
+    padding: 2em 1em;
+  }
+  & > .boxOne {
+    grid-area: box-1;
+
+    border-bottom: var(--border-200);
+
+    @include respond(tab) {
+      border-right: var(--border-200);
+    }
+  }
+
+  & > .boxTwo {
+    grid-area: box-2;
+    border-top: var(--border-200);
+    border-bottom: var(--border-200);
+
+    @include respond(tab) {
+      border-top: none;
+      border-left: var(--border-200);
+    }
+  }
+
+  & > .boxThree {
+    grid-area: box-3;
+    border-top: var(--border-200);
+
+    @include respond(tab) {
+      border-right: var(--border-200);
+    }
+  }
+
+  & > .boxFour {
+    grid-area: box-4;
+    padding: 2em 1em;
+    border-bottom: var(--border-200);
+    border-top: var(--border-200);
+
+    @include respond(tab) {
+      border-bottom: none;
+      border-left: var(--border-200);
+    }
+  }
+}

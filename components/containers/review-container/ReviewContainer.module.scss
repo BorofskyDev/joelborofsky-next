@@ -1,0 +1,39 @@
+@use '../../../styles/mixins' as *;
+
+.reviewContainer {
+  height: 100%;
+  width: 100%;
+  padding: 2em 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+
+  & .review {
+    padding: var(--spacing-100) var(--spacing-200);
+  }
+
+  & .reviewer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    & .link {
+      align-self: baseline;
+      margin-left: 10rem;
+      padding: var(--spacing-100);
+      box-shadow: var(--box-shadow-200);
+      background-color: hsl(var(--color-light));
+      color: hsl(var(--color-link));
+      @include transitionMain;
+
+      &:hover,
+      &:focus {
+        box-shadow: var(--box-shadow-400);
+        background-color: hsl(var(--color-link));
+        color: hsl(var(--color-light));
+      }
+    }
+  }
+}
