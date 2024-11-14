@@ -1,21 +1,31 @@
-// app/admin/page.jsx
 
-'use client'
 
- // If using a centralized auth hook
+
+
+import PageHeader from '@/components/typography/headers/page-header/PageHeader'
+
 import styles from './page.module.scss'
+import MediumHeader from '@/components/typography/headers/medium-header/Mediumheader'
+import InternalLinkBox from '@/components/links/internal-link-box/InternalLinkBox'
 
 export default function AdminPage() {
-  // If using a centralized auth hook, you can access user and isAdmin here
-  // const { user, isAdmin, loading } = useAuth()
-
-  // Since authentication is handled in layout.jsx or Middleware, proceed to render admin content
+ 
 
   return (
     <div className={styles.adminPage}>
-      <h1>Admin Dashboard</h1>
+      <PageHeader>Admin Page</PageHeader>
       <p>Welcome, Admin!</p>
-      {/* Add your admin-specific components and content here */}
+      <div>
+        <MediumHeader>Blog Functions</MediumHeader>
+        <ul>
+          <li>
+            <InternalLinkBox href='/admin/blog/create'>Create New Blog Post </InternalLinkBox>
+          </li>
+          <li>
+            <InternalLinkBox href='/admin/blog/create'>Edit Blog Post </InternalLinkBox>
+          </li>
+        </ul>
+      </div>
     </div>
   )
 }
