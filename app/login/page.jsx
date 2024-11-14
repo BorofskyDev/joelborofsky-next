@@ -1,3 +1,4 @@
+import LoginComponent from '@/components/auth/login-component/LoginComponent'
 import styles from './page.module.scss'
 
 export default function LoginPage() {
@@ -7,6 +8,7 @@ export default function LoginPage() {
          <div className={`bg-blue ${styles.backgroundDiv} ${styles.backgroundDiv__two}`}></div>
          <div className={`bg-green ${styles.backgroundDiv} ${styles.backgroundDiv__three}`}></div>
          <div className={`bg-yellow ${styles.backgroundDiv} ${styles.backgroundDiv__four}`}></div>
+         <LoginComponent />
          </section>
     )
 }
