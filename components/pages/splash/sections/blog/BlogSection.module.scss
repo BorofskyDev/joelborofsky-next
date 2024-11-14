@@ -1,0 +1,7 @@
+@use '../../../../../styles/mixins' as *;
+
+.blogSection {
+    padding: 2em 4em;
+    display: grid;
+    place-items: center;
+}

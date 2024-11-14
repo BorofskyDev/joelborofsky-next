@@ -1,0 +1,7 @@
+@use '../../../../styles/mixins' as *;
+
+.featuredPostHeader {
+    padding: var(--spacing-100) var(--spacing-200);
+    text-transform: capitalize;
+    
+}

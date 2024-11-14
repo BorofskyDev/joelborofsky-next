@@ -1,0 +1,35 @@
+@use '../../../styles/mixins' as *;
+
+.featuredPostPreview {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: var(--spacing-200) var(--spacing-400);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-600);
+
+  & img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--br-400);
+  }
+
+  & .content {
+    display: grid;
+    place-items: center;
+    gap: var(--spacing-300);
+
+    & .dateCat {
+      padding: 0.5rem 1rem;
+      display: none;
+
+      @include respond(tab) {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}
