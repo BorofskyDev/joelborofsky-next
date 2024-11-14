@@ -4,6 +4,7 @@
     position: relative;
     height: 100%;
     width: 100%;
+    padding: 2em 4em;
     border-top: var(--border-400);
     border-bottom: var(--border-400);
     display: flex;
@@ -11,4 +12,29 @@
     align-items: center;
     justify-content: center;
     gap: var(--spacing-600);
+
+    @include respond(laptop) {
+        flex-direction: row;
+        gap: 0;
+    }
+
+    & .containerOne, 
+    & .containerTwo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-400);
+    }
+
+    & .containerOne {
+        & h1 {
+            text-align: center;
+        }
+
+        & .icon {
+            top: 0;
+            right: 0;
+        }
+    }
 }

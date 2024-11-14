@@ -1,0 +1,19 @@
+@use '../../../../styles/mixins' as *;
+
+.icon {
+    bottom: 0;
+    right: 0;
+}
+
+.contactLinkContainer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-200);
+
+
+    
+}
