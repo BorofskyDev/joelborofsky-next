@@ -1,6 +1,7 @@
 import Header from '@/components/layout/header/Header'
 import { playfairDisplay, inconsolata, inter, permanentMarker } from './fonts'
 import '@/styles/globals.scss'
+import Footer from '@/components/layout/footer/Footer'
 
 export const metadata = {
   title: 'Joel Borofsky | Designer & Developer',
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
       >
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   )
