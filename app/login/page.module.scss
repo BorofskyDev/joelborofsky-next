@@ -1,12 +1,13 @@
 .loginPage {
     position: relative;
+height: 100dvh;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: 1fr ;
   gap: 0;
 
   & .backgroundDiv {
-    height: 50dvw;
+    height: 50dvh;
     width: 50dvw;
 
     &__one,

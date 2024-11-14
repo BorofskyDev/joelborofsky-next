@@ -1,9 +1,11 @@
+// components/auth/login-component/LoginComponent.jsx
+
 'use client'
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { auth } from '@/lib/firebase'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword, getIdTokenResult } from 'firebase/auth'
 import styles from './LoginComponent.module.scss'
 import SectionHeader from '@/components/typography/headers/section-header/SectionHeader'
 
@@ -20,10 +22,33 @@ export default function LoginComponent() {
     setError(null)
 
     try {
-      await signInWithEmailAndPassword(auth, email, password)
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+      const user = userCredential.user
 
-      router.push('/')
+      // Refresh the token to get the latest custom claims
+      const idTokenResult = await getIdTokenResult(user, true)
+
+      // Set the ID token in a secure cookie
+      await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token: idTokenResult.token }),
+      })
+
+      // Redirect based on admin status
+      if (idTokenResult.claims.admin) {
+        router.push('/admin')
+      } else {
+        router.push('/')
+      }
     } catch (err) {
+      console.error('Login error:', err)
       setError(err.message)
     } finally {
       setLoading(false)
@@ -41,7 +66,7 @@ export default function LoginComponent() {
         <div className={styles.formGroup}>
           <label
             className={`border-1 bs-2 br-4 bg-light ${styles.label}`}
-            htmlFor={styles.email}
+            htmlFor='email'
           >
             Email:
           </label>
@@ -57,7 +82,10 @@ export default function LoginComponent() {
         </div>
 
         <div className={styles.formGroup}>
-          <label className={`border-1 bs-2 br-4 bg-light ${styles.label}`} htmlFor='password'>
+          <label
+            className={`border-1 bs-2 br-4 bg-light ${styles.label}`}
+            htmlFor='password'
+          >
             Password:
           </label>
           <input
@@ -71,7 +99,11 @@ export default function LoginComponent() {
           />
         </div>
 
-        <button className={`border-2 br-8 bg-red ${styles.button}`} type='submit' disabled={loading}>
+        <button
+          className={`border-2 br-8 bg-red ${styles.button}`}
+          type='submit'
+          disabled={loading}
+        >
           {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>
