@@ -103,7 +103,7 @@ export default function ProjectsSection() {
    />
    
    <ProjectContainer
-    className='bg-orange'
+    className='bg-pink'
     title='Criminal Rolls'
     alt='criminal rolls splash page'
     src={criminalRollsProjectImg}
@@ -121,7 +121,7 @@ export default function ProjectsSection() {
     decorativeIcon={icons.cinnamonRoll.path}
     xmlns4={icons.cinnamonRoll.xmlns}
     viewBox4={icons.cinnamonRoll.viewBox}
-    iconFill='fill-orange'
+    iconFill='fill-pink'
    />
     </div>
     </section>
