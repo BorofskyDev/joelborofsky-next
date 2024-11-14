@@ -1,5 +1,6 @@
 import AboutSection from "./sections/about/AboutSection";
 import BlogSection from "./sections/blog/BlogSection";
+import ContactSection from "./sections/contact/ContactSection";
 import HeroSection from "./sections/hero/HeroSection";
 import ProjectsSection from "./sections/projects/ProjectsSection";
 import ReviewsSection from "./sections/reviews/ReviewsSection";
@@ -14,6 +15,7 @@ export default function SplashPageComponent() {
             <ProjectsSection />
             <ReviewsSection />
             <BlogSection />
+            <ContactSection />
         </div>
     )
 }
