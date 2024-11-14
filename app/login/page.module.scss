@@ -1,0 +1,31 @@
+.loginPage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0;
+
+  & .backgroundDiv {
+    height: 50dvw;
+    width: 50dvw;
+
+    &__one,
+    &__three {
+      border-right: var(--border-200);
+    }
+
+    &__one,
+    &__two {
+      border-bottom: var(--border-200);
+    }
+
+    &__two,
+    &__four {
+      border-left: var(--border-200);
+    }
+
+    &__three,
+    &__four {
+      border-top: var(--border-200);
+    }
+  }
+}
