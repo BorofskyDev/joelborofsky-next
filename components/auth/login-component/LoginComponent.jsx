@@ -65,7 +65,7 @@ export default function LoginComponent() {
         {error && <p className={styles.error}>{error}</p>}
         <div className={styles.formGroup}>
           <label
-            className={`border-1 bs-2 br-4 bg-light ${styles.label}`}
+            className={`border-1 bs-2 br-4 bg-light fs-300 ${styles.label}`}
             htmlFor='email'
           >
             Email:
