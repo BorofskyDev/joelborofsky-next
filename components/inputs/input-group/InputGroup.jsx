@@ -1,4 +1,5 @@
-// components/inputs/InputGroup.jsx
+// components/inputs/input-group/InputGroup.jsx
+
 'use client'
 
 import React from 'react'
@@ -17,11 +18,20 @@ export default function InputGroup({
   accept = '',
   error = '',
   helperText = '',
-  ...props
+  maxWords = null, // New prop for word count
+  ...props // Rest props
 }) {
-  // Generate unique IDs for helperText and error messages
-  const helperTextId = helperText ? `${id}-helper-text` : undefined
-  const errorId = error ? `${id}-error` : undefined
+  // Calculate remaining words if maxWords is provided
+  const remainingWords =
+    maxWords && isTextarea
+      ? maxWords -
+        (value.trim() === ''
+          ? 0
+          : value
+              .trim()
+              .split(/\s+/)
+              .filter((word) => word).length)
+      : null
 
   return (
     <div className={styles.inputGroup}>
@@ -41,10 +51,10 @@ export default function InputGroup({
           aria-required={required}
           aria-invalid={!!error}
           aria-describedby={
-            error ? errorId : helperText ? helperTextId : undefined
+            error ? `${id}-error` : helperText ? `${id}-helper-text` : undefined
           }
           className={`${styles.input} ${error ? styles.errorInput : ''}`}
-          {...props}
+          {...props} // Spread rest props (excluding maxWords)
         />
       ) : (
         <input
@@ -58,19 +68,28 @@ export default function InputGroup({
           aria-required={required}
           aria-invalid={!!error}
           aria-describedby={
-            error ? errorId : helperText ? helperTextId : undefined
+            error ? `${id}-error` : helperText ? `${id}-helper-text` : undefined
           }
           className={`${styles.input} ${error ? styles.errorInput : ''}`}
-          {...props}
+          {...props} // Spread rest props (excluding maxWords)
         />
       )}
       {helperText && (
-        <small id={helperTextId} className={styles.helperText}>
+        <small id={`${id}-helper-text`} className={styles.helperText}>
           {helperText}
         </small>
       )}
+      {remainingWords !== null && (
+        <small
+          className={`${styles.helperText} ${
+            remainingWords < 0 ? styles.errorText : ''
+          }`}
+        >
+          {remainingWords} words remaining
+        </small>
+      )}
       {error && (
-        <span id={errorId} className={styles.error} role='alert'>
+        <span id={`${id}-error`} className={styles.error} role='alert'>
           {error}
         </span>
       )}
@@ -92,4 +111,16 @@ InputGroup.propTypes = {
   accept: PropTypes.string,
   error: PropTypes.string,
   helperText: PropTypes.string,
+  maxWords: PropTypes.number, // New prop for word count
+}
+
+InputGroup.defaultProps = {
+  type: 'text',
+  placeholder: '',
+  required: false,
+  isTextarea: false,
+  accept: '',
+  error: '',
+  helperText: '',
+  maxWords: null,
 }

@@ -10,8 +10,8 @@ import dynamic from 'next/dynamic'
 import 'highlight.js/styles/github.css' // Import Highlight.js styles
 import { useCallback, useRef } from 'react'
 import { toast } from 'react-toastify' // For toast notifications
+import TagSelector from '@/components/inputs/tag-selector/TagSelector' // Ensure correct path
 
-// Dynamically import the Editor component with SSR disabled
 const Editor = dynamic(
   () => import('@tinymce/tinymce-react').then((mod) => mod.Editor),
   {
@@ -27,48 +27,30 @@ export default function CreatePostModal() {
     image,
     imagePreview,
     content,
+    description,
+    selectedTags,
+    setSelectedTags,
     errors,
     isSubmitting,
     successMessage,
     handleTitleChange,
     handleImageChange,
+    handleDescriptionChange,
     handleContentChange,
     handleSubmit,
-    uploadImage,
+    addTag,
+    removeTag,
+    availableTags,
+    loadingTags,
+    creatingTag,
+    fetchTags,
+    createTag,
   } = useCreatePost()
 
   /**
    * Reference to the TinyMCE editor
    */
   const editorRef = useRef(null)
-
-  /**
-   * Custom image handler for TinyMCE to handle image uploads.
-   */
-  const imageHandler = useCallback(() => {
-    const input = document.createElement('input')
-    input.setAttribute('type', 'file')
-    input.setAttribute('accept', 'image/*')
-    input.click()
-
-    input.onchange = async () => {
-      const file = input.files[0]
-      if (file) {
-        try {
-          // Upload image to Firebase and get URL
-          const url = await uploadImage(file)
-          // Insert image into editor
-          const editor = editorRef.current
-          if (editor) {
-            editor.insertContent(`<img src="${url}" alt="Uploaded Image" />`)
-          }
-        } catch (error) {
-          console.error('Error uploading image: ', error)
-          toast.error('Failed to upload image. Please try again.')
-        }
-      }
-    }
-  }, [uploadImage])
 
   /**
    * TinyMCE editor configuration
@@ -85,15 +67,7 @@ export default function CreatePostModal() {
     toolbar_mode: 'floating',
     setup: (editor) => {
       editorRef.current = editor
-      // Register custom image button
-      editor.ui.registry.addButton('image', {
-        icon: 'image',
-        tooltip: 'Insert Image',
-        onAction: () => {
-          imageHandler()
-        },
-      })
-      // Register code block with syntax highlighting
+      // Register custom image button if needed
       editor.on('init', () => {
         editor.formatter.register('code-block', {
           inline: false,
@@ -193,6 +167,31 @@ export default function CreatePostModal() {
             />
           </div>
         )}
+
+        {/* Post Description */}
+        <InputGroup
+          label='Post Description'
+          id='description'
+          isTextarea={true}
+          value={description}
+          onChange={handleDescriptionChange}
+          placeholder='Enter a brief description (max 100 words)'
+          required
+          error={errors.description}
+          helperText='Provide a concise description of your post (up to 100 words).'
+           // Enforce 100-word limit
+        />
+
+        {/* Tag Selector */}
+        <TagSelector
+          availableTags={availableTags}
+          loadingTags={loadingTags}
+          creatingTag={creatingTag}
+          createTag={createTag}
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags} // Correct prop
+          error={errors.tags}
+        />
 
         {/* TinyMCE Rich Text Editor for Content */}
         <div className={styles.inputGroup}>
