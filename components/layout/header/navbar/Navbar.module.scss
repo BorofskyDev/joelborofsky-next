@@ -5,7 +5,7 @@
 
   @include transitionMain;
 
-  @include respond(tab) {
+  @include respond(laptop) {
     position: relative;
     grid-row: 2 / 2;
     width: 100vw;

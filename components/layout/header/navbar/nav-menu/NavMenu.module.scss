@@ -9,7 +9,7 @@
   font-size: var(--fs-700);
   gap: 3em;
 
-  @include respond(tab) {
+  @include respond(laptop) {
     width: 100%;
     padding-inline: var(--spacing-200);
     flex-direction: row;

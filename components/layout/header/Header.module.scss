@@ -11,7 +11,7 @@
   background-color: hsl(var(--color-light));
   z-index: 999999;
 
-  @include respond(tab) {
+  @include respond(laptop) {
     position: relative;
     grid-template-colums: 1fr;
     grid-template-rows: 1.5fr 1fr;
@@ -20,10 +20,6 @@
     overflow: visible;
     padding: 0;
     margin-bottom: 0;
-  }
-
-  @include respond(smallDesktop) {
-    grid-template-rows: 2fr 1fr;
   }
 
   @include respond(desktop) {

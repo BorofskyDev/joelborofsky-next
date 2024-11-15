@@ -14,7 +14,7 @@
   overflow: hidden;
   z-index: 9000 !important; //This is for the developer
 
-  @include respond(tab) {
+  @include respond(laptop) {
     display: none;
   }
 }
