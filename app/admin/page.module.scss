@@ -11,7 +11,7 @@
 
     & .functionsList {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         align-items: center;
         gap: var(--spacing-400);
     }

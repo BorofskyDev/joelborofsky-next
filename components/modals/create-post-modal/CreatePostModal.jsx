@@ -223,7 +223,7 @@ export default function CreatePostModal() {
         {/* Submit Button */}
         <button
           type='submit'
-          className={styles.submitButton}
+          className={`bg-blue border-200 br-800 ${styles.submitButton}`}
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Creating...' : 'Create Post'}

@@ -41,3 +41,4 @@ next-env.d.ts
 
 
 firebase-admin-script
+firebase-service-account-key

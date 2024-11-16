@@ -56,9 +56,9 @@ export default function NavMenu({ handleMenuToggle }) {
               handleMenuToggle={handleMenuToggle}
             />
           )}
-          <li>
+          {/* <li>
             <LogoutButton />
-          </li>
+          </li> */}
         </>
       ) : (
         <MenuLink

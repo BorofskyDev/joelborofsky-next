@@ -3,6 +3,7 @@ import MediumHeader from '@/components/typography/headers/medium-header/Mediumhe
 import ModalButton from '@/components/buttons/modal-button/ModalButton'
 import CreatePostModal from '@/components/modals/create-post-modal/CreatePostModal'
 import styles from './page.module.scss'
+import PostsTable from '@/components/blog/posts-table/PostsTable'
 
 export default function AdminPage() {
   return (
@@ -21,9 +22,7 @@ export default function AdminPage() {
             </ModalButton>
           </li>
           <li>
-            <ModalButton className='bg-violet' modalContent={<div>Edit Post Will Go Here</div>}>
-              Edit Blog Post
-            </ModalButton>
+            <PostsTable />
           </li>
         </ul>
       </div>
