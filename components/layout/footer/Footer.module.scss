@@ -1,91 +1,96 @@
 @use '../../../styles/mixins' as *;
 
 .footer {
-    height: 100%;
-    width: 100%;
-    border-top: var(--border-800);
-    border-bottom: var(--border-800);
-    display: grid;
-    grid-auto-rows: 1fr;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeate(2, 1fr), 0.5fr;
-    grid-template-areas:
+  height: 100%;
+  width: 100%;
+  border-top: var(--border-800);
+  border-bottom: var(--border-800);
+  display: grid;
+  grid-auto-rows: 1fr;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeate(2, 1fr), 0.5fr;
+  grid-template-areas:
     'title tabs'
-    'links links';
+    'links links'
+    'legal legal';
+
+  @include respond(tab) {
+    flex-direction: row;
+  }
+
+  & .header {
+    grid-area: title;
+
+    display: grid;
+    place-content: center;
+    place-items: center;
 
     @include respond(tab) {
-        flex-direction: row;
+      width: 50vw;
+      padding-inline: 4em;
+      border-right: var(--border-400);
+      border-bottom: var(--border-200);
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
     }
 
-    & .header {
-        grid-area: title;
-       
-        display: grid;
-        place-content: center;
-        place-items: center;
+    &__title {
+      transform: rotate(-90deg);
+      margin: 6em 0;
+      display: grid;
+      place-content: center;
 
-        @include respond(tab) {
-            width: 50vw;
-            padding-inline: 4em;
-            border-right: var(--border-400);
-            border-bottom: var(--border-200);
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
+      @include respond(tab) {
+        transform: rotate(-45deg);
+      }
 
-        }
+      & span {
+        transform: skew(0deg);
+      }
+    }
+  }
 
-        &__title {
-            transform: rotate(-90deg);
-            margin: 6em 0;
-            display: grid;
-            place-content: center;
+  & .blocks {
+    padding: 4em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
 
-            @include respond(tab) {
-                transform: rotate(-45deg);
-            }
+    @include respond(tab) {
+      width: 50vw;
+      gap: 2em;
+      border-bottom: var(--border-200);
+    }
+  }
 
-            & span {
-                transform: skew(0deg)
-            }
-        }
+  & .links {
+    width: 100%;
+    padding: 0 2em;
+
+    @include respond(tab) {
+      padding-top: 4em;
+      border-top: var(--border-200);
     }
 
-    & .blocks {
-        
-        padding: 4em;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 1em;
-
-        @include respond(tab) {
-            width: 50vw;
-            gap: 2em;
-            border-bottom: var(--border-200);
-        }
+    &__list {
+      width: 100%;
+      margin-top: 2em;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: var(--spacing-400);
     }
+  }
 
-    & .links {
-        grid-area: links;
-        
-        width: 100%;
-        padding: 0 2em;
+  & .legalLinks {
+    grid-area: legal;
+  }
 
-        @include respond(tab) {
-            padding-top: 4em;
-            border-top: var(--border-200);
-        }
-
-        &__list {
-            width: 100%;
-            margin-top: 2em;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-        }
-    }
-
+  & .linksLearning {
+    grid-area: links;
+  }
 }

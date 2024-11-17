@@ -19,15 +19,15 @@ export default function NavMenu({ handleMenuToggle }) {
         handleMenuToggle={handleMenuToggle}
       />
       <MenuLink
-        href='/about'
-        data-text='About'
-        content='About'
+        href='/services'
+        data-text='Services'
+        content='Services'
         handleMenuToggle={handleMenuToggle}
       />
       <MenuLink
-        href='/projects'
-        data-text='Projects'
-        content='Projects'
+        href='/about'
+        data-text='About'
+        content='About'
         handleMenuToggle={handleMenuToggle}
       />
       <MenuLink

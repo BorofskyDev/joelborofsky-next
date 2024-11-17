@@ -2,6 +2,7 @@ import SectionHeader from '@/components/typography/headers/section-header/Sectio
 import styles from './Footer.module.scss'
 import MediumTitleContainer from '@/components/containers/title-containers/medium-title-container/MediumTitleContainer'
 import ExternalButtonLink from '@/components/links/external-button-link/ExternalButtonLink'
+import InternalLinkBox from '@/components/links/internal-link-box/InternalLinkBox'
 
 export default function Footer() {
   return (
@@ -23,10 +24,10 @@ export default function Footer() {
           Business
         </MediumTitleContainer>
         <MediumTitleContainer className='bg-yellow'>
-          Decent Ole' Chap
+          Decent Ole&apos; Chap
         </MediumTitleContainer>
       </div>
-      <div className={styles.links}>
+      <div className={`${styles.links} ${styles.linksLearning}`}>
         <MediumTitleContainer className={`bg-orange ${styles.title}`}>
           People That Helped Me Learn
         </MediumTitleContainer>
@@ -61,6 +62,59 @@ export default function Footer() {
           >
             WebDev Simplified
           </ExternalButtonLink>
+        </ul>
+      </div>
+      <div className={`bg-dark ${styles.links} ${styles.legalLinks}`}>
+        <MediumTitleContainer className={`bg-blue ${styles.title}`}>
+          It&apos;s Closing Time, One Last Call for Links
+        </MediumTitleContainer>
+        <ul className={styles.links__list}>
+          <li>
+            <InternalLinkBox href='/'>Home</InternalLinkBox>
+          </li>
+          <li>
+            <InternalLinkBox href='/about'>About</InternalLinkBox>
+          </li>
+          <li>
+            <InternalLinkBox href='/projects'>Projects</InternalLinkBox>
+          </li>
+          <li>
+            <InternalLinkBox href='/blog'>Blog</InternalLinkBox>
+          </li>
+          <li>
+            <InternalLinkBox href='/contact'>Contact</InternalLinkBox>
+          </li>
+          <li>
+            <InternalLinkBox href='/privacy-policy'>
+              Privacy Policy
+            </InternalLinkBox>
+          </li>
+          <li>
+            <InternalLinkBox href='/piracy-policy'>
+              Piracy Policy
+            </InternalLinkBox>
+          </li>
+          <li>
+            <InternalLinkBox href='/terms-of-service'>
+              Terms of Service
+            </InternalLinkBox>
+          </li>
+          <li>
+            <InternalLinkBox href='/zizek-policy'>Zizek Policy</InternalLinkBox>
+          </li>
+          <li>
+            <InternalLinkBox href='/cookies'>Cookies</InternalLinkBox>
+          </li>
+          <li>
+            <InternalLinkBox href='/accessibility-statement'>
+              Accessibility Statement
+            </InternalLinkBox>
+          </li>
+          <li>
+            <InternalLinkBox href='/kafka-policy'>
+              Kafka Policy
+            </InternalLinkBox>
+          </li>
         </ul>
       </div>
     </footer>
