@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import styles from './Modal.module.scss'
 
-export default function Modal({ isOpen, onClose, children, originRef }) {
+export default function Modal({ isOpen, onClose, children, originRef, modalBg }) {
   // Handle closing the modal when pressing the Escape key
   useEffect(() => {
     const handleEsc = (event) => {
@@ -33,7 +33,7 @@ export default function Modal({ isOpen, onClose, children, originRef }) {
 
           {/* Modal Content */}
           <motion.div
-            className={`border-4 bg-green br-8 bs-4 ${styles.modalContent}`}
+            className={`border-4 br-8 bs-4 ${modalBg} ${styles.modalContent}`}
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1, x: '-50%', y: '-50%' }}
             exit={{ scale: 0, opacity: 0 }}

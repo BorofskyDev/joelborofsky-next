@@ -28,7 +28,7 @@ export default function ModalButton({
       >
         {children}
       </button>
-      <Modal isOpen={isOpen} onClose={closeModal} originRef={buttonRef}>
+      <Modal className={className} isOpen={isOpen} onClose={closeModal} originRef={buttonRef}>
         {modalContent}
       </Modal>
     </>

@@ -36,12 +36,12 @@ export default function NavMenu({ handleMenuToggle }) {
         content='Blog'
         handleMenuToggle={handleMenuToggle}
       />
-      <MenuLink
+      {/* <MenuLink
         href='/contact'
         data-text='Contact'
         content='Contact'
         handleMenuToggle={handleMenuToggle}
-      />
+      /> */}
 
     
 

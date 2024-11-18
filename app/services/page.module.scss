@@ -1,0 +1,12 @@
+@use '../../styles/mixins' as *;
+
+.servicesPage {
+    height: 100%;
+    padding: 8em 4em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--spacing-800);
+    align-items: center;
+    
+}

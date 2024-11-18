@@ -3,6 +3,7 @@ import LargeTitleContainer from '@/components/containers/title-containers/large-
 import MediumIcon from '@/components/icons/medium-icon/MediumIcon'
 import { icons } from '@/components/icons/icons'
 import styles from './HeroContent.module.scss'
+import InternalLinkBox from '@/components/links/internal-link-box/InternalLinkBox'
 
 export default function HeroContent() {
   const notBad = icons.notBad
@@ -22,6 +23,7 @@ export default function HeroContent() {
           className='bg-light fill-vibrant-blue top-right'
         />
       </LargeTitleContainer>
+      <InternalLinkBox href='/contact'>Contact Me!</InternalLinkBox>
     </div>
   )
 }
