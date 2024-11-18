@@ -2,13 +2,15 @@ import PageHeader from '@/components/typography/headers/page-header/PageHeader'
 import ModalLinkContainer from '@/components/containers/section-containers/modal-link-container/ModalLinkContainer'
 import IconModalButton from '@/components/buttons/icon-modal-button/IconModalButton'
 import { icons } from '@/components/icons/icons'
-import { WebDesign, WebDevelopment, BusinessDev } from '@/components/pages/services'
+import {
+  WebDesign,
+  WebDevelopment,
+  BusinessDev,
+  Prices,
+} from '@/components/pages/services'
 import styles from './page.module.scss'
 
 export default function ServicesPage() {
-
-  
- 
   return (
     <section className={`bg-blue ${styles.servicesPage}`}>
       <PageHeader>Services!</PageHeader>
@@ -40,7 +42,15 @@ export default function ServicesPage() {
           modalContent={<BusinessDev />}
           modalBg='bg-pink'
         />
-
+        <IconModalButton
+          label='Prices'
+          icon={icons.dollar.path}
+          viewBox={icons.dollar.viewBox}
+          xmlns={icons.dollar.xmlns}
+          className='fill-vibrant-purple bg-yellow'
+          modalContent={<Prices />}
+          modalBg='bg-yellow'
+        />
       </ModalLinkContainer>
     </section>
   )

@@ -1,5 +1,6 @@
+import { BusinessDev } from './BusinessDev'
+import { Prices } from './Prices'
 import { WebDesign } from './WebDesign'
 import { WebDevelopment } from './WebDevelopment'
-import { BusinessDev } from './BusinessDev'
 
-export { WebDesign, WebDevelopment, BusinessDev } 
+export { WebDesign, WebDevelopment, BusinessDev, Prices }
