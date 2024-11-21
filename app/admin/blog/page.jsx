@@ -1,4 +1,4 @@
-import PostsTable from "@/components/blog/posts-table/PostsTable";
+import PostsTable from '@/components/blog/posts-table/PostsTable.server'
 import ModalButton from "@/components/buttons/modal-button/ModalButton";
 import CreatePostModal from "@/components/modals/create-post-modal/CreatePostModal";
 import MediumHeader from "@/components/typography/headers/medium-header/Mediumheader";

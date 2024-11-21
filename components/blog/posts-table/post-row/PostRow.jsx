@@ -1,34 +1,27 @@
-// components/post-row/PostRow.jsx
+// components/blog/post-row/PostRow.jsx
 
 'use client'
 
-import { useState } from 'react'
 import Image from 'next/image'
-import EditPostModal from '@/components/modals/edit-post-modal/EditPostModal'
 import format from 'date-fns/format'
+import styles from './PostRow.module.scss'
 
-export default function PostRow({ post }) {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const handleRowClick = () => {
-    setIsModalOpen(true)
-  }
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
-  }
-
+export default function PostRow({ post, onRowClick }) {
   const publishedStatus = post.published ? 'Published' : 'Draft'
 
   const createdDate = post.createdAt
     ? format(new Date(post.createdAt), 'PPP')
     : 'Unknown'
 
+  const handleClick = () => {
+    console.log('Clicked post:', post) // For debugging
+    onRowClick(post)
+  }
   return (
-    <>
-      <tr onClick={handleRowClick} className='cursor-pointer hover:bg-gray-100'>
-        <td>
-          {post.imageURL && (
+    <tr className={`${styles.postRow}`}>
+      <td>
+        {post.imageURL && (
+          <button onClick={handleClick}>
             <Image
               src={post.imageURL}
               alt={post.title}
@@ -36,15 +29,18 @@ export default function PostRow({ post }) {
               height={60}
               objectFit='cover'
             />
-          )}
-        </td>
-        <td>{post.title}</td>
-        <td>{publishedStatus}</td>
-        <td>{createdDate}</td>
-      </tr>
-      {isModalOpen && (
-        <EditPostModal postId={post.id} onClose={handleCloseModal} />
-      )}
-    </>
+          </button>
+        )}
+      </td>
+      <td>
+        <button onClick={handleClick}>{post.title}</button>
+      </td>
+      <td>
+        <button onClick={handleClick}>{publishedStatus}</button>
+      </td>
+      <td>
+        <button onClick={handleClick}>{createdDate}</button>
+      </td>
+    </tr>
   )
 }

@@ -1,8 +1,28 @@
+@use '../../../styles/mixins' as *;
+
 .editPostModal {
-    width: 40rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: hsl(var(--color-violet))
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-400);
+
+    & .buttonGroup {
+        margin-top: var(--spacing-400);
+        display: flex;
+        justify-content: space-between;
+
+        & .button {
+            padding: 0.5em 1.5em;
+            box-shadow: var(--box-shadow-200);
+            border: var(--border-200);
+            outline: none;
+            cursor: pointer;
+            @include transitionMain;
+
+            &:hover, &:focus {
+                box-shadow: var(--box-shadow-400);
+            }
+        }
+    }
 }

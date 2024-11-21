@@ -2,25 +2,20 @@
 
 'use client'
 
-import styles from './EditPostModal.module.scss'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { db, storage } from '@/lib/firebase'
-import {
-  doc,
-  getDoc,
-  updateDoc,
-  serverTimestamp,
-  Timestamp,
-} from 'firebase/firestore'
+import { doc, updateDoc, serverTimestamp, Timestamp } from 'firebase/firestore'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import InputGroup from '@/components/inputs/input-group/InputGroup'
 import TagSelector from '@/components/inputs/tag-selector/TagSelector'
 import dynamic from 'next/dynamic'
-import 'highlight.js/styles/github.css' // Import Highlight.js styles
+import 'highlight.js/styles/github.css'
 import { toast } from 'react-toastify'
 import { useTags } from '@/lib/hooks/blog/useTags'
 import Image from 'next/image'
 import imageCompression from 'browser-image-compression'
+import Modal from '../Modal'
+import styles from './EditPostModal.module.scss'
 
 const Editor = dynamic(
   () => import('@tinymce/tinymce-react').then((mod) => mod.Editor),
@@ -30,67 +25,29 @@ const Editor = dynamic(
   }
 )
 
-export default function EditPostModal({ postId, onClose }) {
-  const [post, setPost] = useState(null)
+export default function EditPostModal({ post, onClose }) {
+  // Initialize state with post data
+  const [title, setTitle] = useState(post.title || '')
+  const [slug, setSlug] = useState(post.slug || '')
+  const [imageURL, setImageURL] = useState(post.imageURL || '')
+  const [imageFile, setImageFile] = useState(null)
+  const [imagePreview, setImagePreview] = useState(post.imageURL || null)
+  const [description, setDescription] = useState(post.description || '')
+  const [content, setContent] = useState(post.content || '')
+  const [selectedTags, setSelectedTags] = useState(post.tags || [])
+  const [published, setPublished] = useState(post.published || false)
+  const [publishDate, setPublishDate] = useState(
+    post.publishDate
+      ? post.publishDate.toDate().toISOString().substring(0, 16)
+      : ''
+  )
+  const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
 
   const { availableTags, loadingTags, creatingTag, createTag } = useTags()
 
-  // Define state variables for the form fields
-  const [title, setTitle] = useState('')
-  const [slug, setSlug] = useState('')
-  const [imageURL, setImageURL] = useState('')
-  const [imageFile, setImageFile] = useState(null)
-  const [imagePreview, setImagePreview] = useState(null)
-  const [description, setDescription] = useState('')
-  const [content, setContent] = useState('')
-  const [selectedTags, setSelectedTags] = useState([])
-  const [published, setPublished] = useState(false)
-  const [publishDate, setPublishDate] = useState('')
-  const [errors, setErrors] = useState({})
-
   const editorRef = useRef(null)
-
-  /**
-   * Fetches the post data and updates state variables.
-   */
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const docRef = doc(db, 'posts', postId)
-        const docSnap = await getDoc(docRef)
-        if (docSnap.exists()) {
-          const fetchedPost = { id: docSnap.id, ...docSnap.data() }
-          setPost(fetchedPost)
-
-          // Update state variables with fetched post data
-          setTitle(fetchedPost.title || '')
-          setSlug(fetchedPost.slug || '')
-          setImageURL(fetchedPost.imageURL || '')
-          setImagePreview(fetchedPost.imageURL || null)
-          setDescription(fetchedPost.description || '')
-          setContent(fetchedPost.content || '')
-          setSelectedTags(fetchedPost.tags || [])
-          setPublished(fetchedPost.published || false)
-          setPublishDate(
-            fetchedPost.publishDate
-              ? fetchedPost.publishDate.toDate().toISOString().substring(0, 16)
-              : ''
-          )
-        } else {
-          toast.error('Post not found.')
-          onClose()
-        }
-      } catch (error) {
-        console.error('Error fetching post:', error)
-        toast.error('Failed to load post. Please try again.')
-        onClose()
-      }
-    }
-
-    fetchPost()
-  }, [postId, onClose])
 
   /**
    * TinyMCE editor configuration
@@ -135,7 +92,6 @@ export default function EditPostModal({ postId, onClose }) {
     `,
     automatic_uploads: true,
     images_upload_handler: async (blobInfo, success, failure) => {
-      // Handle image uploads within the editor
       try {
         const file = blobInfo.blob()
         const url = await uploadImage(file)
@@ -147,77 +103,13 @@ export default function EditPostModal({ postId, onClose }) {
   }
 
   /**
-   * Handles changes to the title input.
-   *
-   * @param {Event} e - The change event from the title input.
-   */
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value)
-    // Optionally, update the slug here if you want to allow slug changes
-  }
-
-  /**
-   * Handles changes to the description input.
-   *
-   * @param {Event} e - The change event from the description input.
-   */
-  const handleDescriptionChange = (e) => {
-    const input = e.target.value
-    const wordCount = input
-      .trim()
-      .split(/\s+/)
-      .filter((word) => word).length
-
-    if (wordCount <= 100) {
-      setDescription(input)
-      setErrors((prev) => ({ ...prev, description: null }))
-    } else {
-      setErrors((prev) => ({
-        ...prev,
-        description: 'Description cannot exceed 100 words.',
-      }))
-    }
-  }
-
-  /**
-   * Handles changes to the rich text editor.
-   *
-   * @param {string} value - The HTML content from the editor.
-   */
-  const handleContentChange = (value) => {
-    setContent(value)
-    setErrors((prev) => ({ ...prev, content: null }))
-  }
-
-  /**
-   * Handles image file selection and generates a preview.
-   *
-   * @param {Event} e - The change event from the image input.
-   */
-  const handleImageChange = (e) => {
-    const file = e.target.files[0]
-    if (file) {
-      setImageFile(file)
-      // Generate image preview using FileReader
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setImagePreview(reader.result)
-      }
-      reader.readAsDataURL(file)
-    } else {
-      setImageFile(null)
-      setImagePreview(imageURL)
-    }
-  }
-
-  /**
    * Handles image uploads.
    *
    * @param {File} file - The image file to upload.
    * @returns {Promise<string>} - The URL of the uploaded image.
    */
   const uploadImage = async (file) => {
-    // Compress the image before uploading
+    const currentSlug = slug || post.slug || 'default-slug'
     const options = {
       maxSizeMB: 1,
       maxWidthOrHeight: 1920,
@@ -225,7 +117,10 @@ export default function EditPostModal({ postId, onClose }) {
     }
     try {
       const compressedFile = await imageCompression(file, options)
-      const imageRef = ref(storage, `postImages/${slug}-${compressedFile.name}`)
+      const imageRef = ref(
+        storage,
+        `postImages/${currentSlug}-${compressedFile.name}`
+      )
       await uploadBytes(imageRef, compressedFile)
       const uploadedImageURL = await getDownloadURL(imageRef)
       return uploadedImageURL
@@ -256,6 +151,7 @@ export default function EditPostModal({ postId, onClose }) {
         .trim()
         .split(/\s+/)
         .filter((word) => word).length
+
       if (wordCount > 100)
         newErrors.description = 'Description cannot exceed 100 words.'
     }
@@ -277,7 +173,7 @@ export default function EditPostModal({ postId, onClose }) {
         updatedImageURL = await uploadImage(imageFile)
       }
 
-      const docRef = doc(db, 'posts', postId)
+      const docRef = doc(db, 'posts', post.id)
       await updateDoc(docRef, {
         title: title.trim(),
         description: description.trim(),
@@ -303,175 +199,200 @@ export default function EditPostModal({ postId, onClose }) {
     }
   }
 
-  // Optional: Show a loading state while the post is being fetched
-  if (!post) {
-    return (
-      <div className={styles.editPostModal} role='dialog' aria-modal='true'>
-        <p>Loading...</p>
-      </div>
-    )
-  }
-
   return (
-    <div
-      className={styles.editPostModal}
-      role='dialog'
-      aria-modal='true'
-      aria-labelledby='edit-post-title'
-    >
-      <h2 id='edit-post-title'>Edit Post</h2>
-      {successMessage && (
-        <p className={styles.successMessage}>{successMessage}</p>
-      )}
-      <form className={styles.form} onSubmit={handleSubmit}>
-        {/* Title Input */}
-        <InputGroup
-          label='Post Title'
-          id='title'
-          type='text'
-          value={title}
-          onChange={handleTitleChange}
-          placeholder='Enter post title'
-          required
-          error={errors.title}
-          helperText='Enter a descriptive title for your post.'
-        />
-
-        {/* Slug Display */}
-        <InputGroup
-          label='Post Slug'
-          id='slug'
-          type='text'
-          value={slug}
-          readOnly
-          placeholder='Slug'
-          helperText='The slug used in the post URL.'
-        />
-
-        {/* Image Upload */}
-        <InputGroup
-          label='Post Image'
-          id='image'
-          type='file'
-          accept='image/*'
-          onChange={handleImageChange}
-          error={errors.image}
-          helperText='Upload an image related to your post.'
-        />
-
-        {/* Image Preview */}
-        {imagePreview && (
-          <div className={styles.imagePreview}>
-            <Image
-              src={imagePreview}
-              alt='Image Preview'
-              width={800}
-              height={600}
-              unoptimized
-            />
-          </div>
+    <Modal modalBg='bg-green' isOpen={true} onClose={onClose}>
+      <div
+        className={styles.editPostModal}
+        role='dialog'
+        aria-modal='true'
+        aria-labelledby='edit-post-title'
+      >
+        <h2 id='edit-post-title'>Edit Post</h2>
+        {successMessage && (
+          <p className={styles.successMessage}>{successMessage}</p>
         )}
-
-        {/* Post Description */}
-        <InputGroup
-          label='Post Description'
-          id='description'
-          isTextarea={true}
-          value={description}
-          onChange={handleDescriptionChange}
-          placeholder='Enter a brief description (max 100 words)'
-          required
-          error={errors.description}
-          helperText='Provide a concise description of your post (up to 100 words).'
-        />
-
-        {/* Tag Selector */}
-        <TagSelector
-          availableTags={availableTags}
-          loadingTags={loadingTags}
-          creatingTag={creatingTag}
-          createTag={createTag}
-          selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
-          error={errors.tags}
-        />
-
-        {/* TinyMCE Rich Text Editor for Content */}
-        <div className={styles.inputGroup}>
-          <label
-            htmlFor='content'
-            className={`border-1 bs-3 br-4 fw-bold bg-light fs-200 ${styles.label}`}
-          >
-            Post Content <span aria-hidden='true'>*</span>
-          </label>
-          <Editor
-            apiKey={process.env.NEXT_PUBLIC_TINYMCE_API_KEY}
-            value={content}
-            onEditorChange={handleContentChange}
-            init={editorConfig}
-            className={`${styles.richText} ${
-              errors.content ? styles.errorInput : ''
-            }`}
-            aria-required='true'
-            aria-invalid={!!errors.content}
-            aria-describedby={errors.content ? 'content-error' : undefined}
+        <form className={styles.form} onSubmit={handleSubmit}>
+          {/* Title Input */}
+          <InputGroup
+            label='Post Title'
+            id='title'
+            type='text'
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder='Enter post title'
+            required
+            error={errors.title}
+            helperText='Enter a descriptive title for your post.'
           />
-          {errors.content && (
-            <span id='content-error' className={styles.error} role='alert'>
-              {errors.content}
+
+          {/* Slug Display */}
+          <InputGroup
+            label='Post Slug'
+            id='slug'
+            type='text'
+            value={slug}
+            readOnly
+            placeholder='Slug'
+            helperText='The slug used in the post URL.'
+          />
+
+          {/* Image Upload */}
+          <InputGroup
+            label='Post Image'
+            id='image'
+            type='file'
+            accept='image/*'
+            onChange={(e) => {
+              const file = e.target.files[0]
+              if (file) {
+                setImageFile(file)
+                const reader = new FileReader()
+                reader.onloadend = () => {
+                  setImagePreview(reader.result)
+                }
+                reader.readAsDataURL(file)
+              } else {
+                setImageFile(null)
+                setImagePreview(imageURL)
+              }
+            }}
+            error={errors.image}
+            helperText='Upload an image related to your post.'
+          />
+
+          {/* Image Preview */}
+          {imagePreview && (
+            <div className={styles.imagePreview}>
+              <Image
+                src={imagePreview}
+                alt='Image Preview'
+                width={800}
+                height={600}
+                // Consider removing 'unoptimized' if not necessary
+              />
+            </div>
+          )}
+
+          {/* Post Description */}
+          <InputGroup
+            label='Post Description'
+            id='description'
+            isTextarea={true}
+            value={description}
+            onChange={(e) => {
+              const input = e.target.value
+              const wordCount = input
+                .trim()
+                .split(/\s+/)
+                .filter((word) => word).length
+
+              if (wordCount <= 100) {
+                setDescription(input)
+                setErrors((prev) => ({ ...prev, description: null }))
+              } else {
+                setErrors((prev) => ({
+                  ...prev,
+                  description: 'Description cannot exceed 100 words.',
+                }))
+              }
+            }}
+            placeholder='Enter a brief description (max 100 words)'
+            required
+            error={errors.description}
+            helperText='Provide a concise description of your post (up to 100 words).'
+          />
+
+          {/* Tag Selector */}
+          <TagSelector
+            availableTags={availableTags}
+            loadingTags={loadingTags}
+            creatingTag={creatingTag}
+            createTag={createTag}
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+            error={errors.tags}
+          />
+
+          {/* TinyMCE Rich Text Editor for Content */}
+          <div className={styles.inputGroup}>
+            <label
+              htmlFor='content'
+              className={`border-1 bs-3 br-4 fw-bold bg-light fs-200 ${styles.label}`}
+            >
+              Post Content <span aria-hidden='true'>*</span>
+            </label>
+            <Editor
+              apiKey={process.env.NEXT_PUBLIC_TINYMCE_API_KEY}
+              value={content}
+              onEditorChange={(value) => {
+                setContent(value)
+                setErrors((prev) => ({ ...prev, content: null }))
+              }}
+              init={editorConfig}
+              className={`${styles.richText} ${
+                errors.content ? styles.errorInput : ''
+              }`}
+              aria-required='true'
+              aria-invalid={!!errors.content}
+              aria-describedby={errors.content ? 'content-error' : undefined}
+            />
+            {errors.content && (
+              <span id='content-error' className={styles.error} role='alert'>
+                {errors.content}
+              </span>
+            )}
+          </div>
+
+          {/* Published Checkbox */}
+          <div className={styles.inputGroup}>
+            <label htmlFor='published' className={styles.label}>
+              <input
+                type='checkbox'
+                id='published'
+                checked={published}
+                onChange={(e) => setPublished(e.target.checked)}
+              />{' '}
+              Published
+            </label>
+          </div>
+
+          {/* Publish Date */}
+          {published && (
+            <InputGroup
+              label='Publish Date'
+              id='publishDate'
+              type='datetime-local'
+              value={publishDate}
+              onChange={(e) => setPublishDate(e.target.value)}
+              error={errors.publishDate}
+              helperText='Select a future date to schedule the post.'
+            />
+          )}
+
+          {/* Submit and Cancel Buttons */}
+          <div className={styles.buttonGroup}>
+            <button
+              type='submit'
+              className={`bg-blue border-2 br-4 ${styles.button}`}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Updating...' : 'Update Post'}
+            </button>
+            <button
+              type='button'
+              className={`bg-red border-2 br-4 ${styles.button}`}
+              onClick={onClose}
+            >
+              Cancel
+            </button>
+          </div>
+          {errors.submit && (
+            <span className={styles.error} role='alert'>
+              {errors.submit}
             </span>
           )}
-        </div>
-
-        {/* Published Checkbox */}
-        <div className={styles.inputGroup}>
-          <label htmlFor='published' className={styles.label}>
-            <input
-              type='checkbox'
-              id='published'
-              checked={published}
-              onChange={(e) => setPublished(e.target.checked)}
-            />{' '}
-            Published
-          </label>
-        </div>
-
-        {/* Publish Date */}
-        {published && (
-          <InputGroup
-            label='Publish Date'
-            id='publishDate'
-            type='datetime-local'
-            value={publishDate}
-            onChange={(e) => setPublishDate(e.target.value)}
-            error={errors.publishDate}
-            helperText='Select a future date to schedule the post.'
-          />
-        )}
-
-        {/* Submit and Cancel Buttons */}
-        <div className={styles.buttonGroup}>
-          <button
-            type='submit'
-            className={`bg-blue border-200 br-800 ${styles.submitButton}`}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Updating...' : 'Update Post'}
-          </button>
-          <button
-            type='button'
-            className={`ml-4 ${styles.cancelButton}`}
-            onClick={onClose}
-          >
-            Cancel
-          </button>
-        </div>
-        {errors.submit && (
-          <span className={styles.error} role='alert'>
-            {errors.submit}
-          </span>
-        )}
-      </form>
-    </div>
+        </form>
+      </div>
+    </Modal>
   )
 }

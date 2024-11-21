@@ -1,33 +1,13 @@
-// components/blog/PostsTable.jsx
+// components/blog/PostsTableClient.jsx
+
 'use client'
+
 import { useState } from 'react'
 import PostRow from './post-row/PostRow'
 import EditPostModal from '@/components/modals/edit-post-modal/EditPostModal'
+import styles from './PostsTable.module.scss'
 
-export default async function PostsTable() {
-  // Fetch posts as before
-  const postsSnapshot = await dbAdmin
-    .collection('posts')
-    .orderBy('createdAt', 'desc')
-    .get()
-
-  const posts = postsSnapshot.docs.map((doc) => {
-    const data = doc.data()
-
-    // Convert Timestamps to ISO strings
-    const serializedData = {
-      id: doc.id,
-      ...data,
-      createdAt: data.createdAt ? data.createdAt.toDate().toISOString() : null,
-      updatedAt: data.updatedAt ? data.updatedAt.toDate().toISOString() : null,
-      publishDate: data.publishDate
-        ? data.publishDate.toDate().toISOString()
-        : null,
-    }
-
-    return serializedData
-  })
-
+export default function PostsTableClient({ posts }) {
   const [selectedPost, setSelectedPost] = useState(null)
 
   const handleRowClick = (post) => {
@@ -39,7 +19,7 @@ export default async function PostsTable() {
   }
 
   return (
-    <div>
+    <div className={styles.postsTable}>
       <table>
         <thead>
           <tr>
