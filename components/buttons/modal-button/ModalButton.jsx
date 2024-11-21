@@ -28,7 +28,7 @@ export default function ModalButton({
       >
         {children}
       </button>
-      <Modal className={className} isOpen={isOpen} onClose={closeModal} originRef={buttonRef}>
+      <Modal modalBg='bg-blue' className={className} isOpen={isOpen} onClose={closeModal} originRef={buttonRef}>
         {modalContent}
       </Modal>
     </>

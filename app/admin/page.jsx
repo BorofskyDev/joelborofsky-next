@@ -1,30 +1,14 @@
 import PageHeader from '@/components/typography/headers/page-header/PageHeader'
-import MediumHeader from '@/components/typography/headers/medium-header/Mediumheader'
-import ModalButton from '@/components/buttons/modal-button/ModalButton'
-import CreatePostModal from '@/components/modals/create-post-modal/CreatePostModal'
+import InternalLinkBox from '@/components/links/internal-link-box/InternalLinkBox'
 import styles from './page.module.scss'
-import PostsTable from '@/components/blog/posts-table/PostsTable'
 
 export default function AdminPage() {
   return (
     <div className={`bg-blue ${styles.adminPage}`}>
       <PageHeader>Admin Page</PageHeader>
 
-      <div>
-        <MediumHeader className='bg-pink'>Blog Functions</MediumHeader>
-        <ul className={styles.functionsList}>
-          <li>
-            <ModalButton
-              className='bg-green'
-              modalContent={<CreatePostModal />}
-            >
-              Create New Blog Post
-            </ModalButton>
-          </li>
-          <li>
-            <PostsTable />
-          </li>
-        </ul>
+      <div className={styles.linkContainer}>
+        <InternalLinkBox href='/admin/blog'>Blog</InternalLinkBox>
       </div>
     </div>
   )

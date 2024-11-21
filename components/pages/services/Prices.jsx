@@ -65,8 +65,7 @@ export function Prices() {
         of hours I estimate it will take me to build the site. If I run over the
         estimated hours and the scope hasn&apos;t changed, then I eat that cost.
         Having faced the confusion of quotes, I do all that I can to be honest
-        and fair in my evaluations, up to and including if what you are
-        requesting is outside of my skillset. Honesty is my guarantee.{' '}
+        and fair in my evaluations. Honesty is my guarantee.{' '}
       </p>
     </SmallServiceContainer>
   )

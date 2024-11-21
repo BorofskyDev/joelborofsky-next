@@ -109,7 +109,7 @@ export default function CreatePostModal() {
 
   return (
     <div
-      className={styles.createPostModal}
+      className={`bg-blue ${styles.createPostModal}`}
       role='dialog'
       aria-modal='true'
       aria-labelledby='create-post-title'
@@ -223,7 +223,7 @@ export default function CreatePostModal() {
         {/* Submit Button */}
         <button
           type='submit'
-          className={`bg-blue border-200 br-800 ${styles.submitButton}`}
+          className={`bg-red border-200 br-800 ${styles.submitButton}`}
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Creating...' : 'Create Post'}

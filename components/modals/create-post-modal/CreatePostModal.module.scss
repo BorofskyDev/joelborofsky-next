@@ -9,6 +9,7 @@
   justify-content: center;
   gap: var(--spacing-600);
   
+  
   @include respond(laptop) {
     min-width: 40rem;
   }
@@ -23,6 +24,7 @@
     flex-direction: column;
     gap: var(--spacing-400);
     width: 100%; // Ensure the form takes full width
+    
   }
 
   & .imagePreview {
