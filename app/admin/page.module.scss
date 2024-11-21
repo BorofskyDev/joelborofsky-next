@@ -9,5 +9,9 @@
     justify-content: center;
     gap: var(--spacing-400);
 
-    
+    & .linkContainer {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-400);
+    }
 }

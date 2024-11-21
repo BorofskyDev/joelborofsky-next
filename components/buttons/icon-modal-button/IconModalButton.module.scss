@@ -14,9 +14,16 @@
 
     @include transitionMain;
 
+    
     &:hover, &:focus {
-        box-shadow: var(--box-shadow-400);
-        border-radius: var(--border-radius-600);
-        transform: translateY(-2px);
-    }
+        
+        & div {
+             @include transitionMain;
+             box-shadow: var(--box-shadow-600);
+             transform: translateY(-2px);
+
+         }
+     }
+
+
 }
